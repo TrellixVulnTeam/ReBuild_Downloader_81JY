@@ -1,85 +1,83 @@
 [{
-	"Name": "ReHLDS",
-	"Binary_path" : "%root%",
-	"Binary_URL" : [
+	"name": "ReHLDS",
+	"binary_path" : "%root%",
+	"linux" : 
 		{
-			"Name" : "Linux",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/Rehlds_Linux/.lastSuccessful/releaseRehldsFixes/engine_i486.so?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/Rehlds_Linux/.lastSuccessful/releaseRehldsFixes/engine_i486.so?branch=master",
 			"bin_name" : "engine_i486.so"
 		},
+	"win32" :
 		{
-			"Name" : "Win32",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/Rehlds_Windows/.lastSuccessful/releaseRehldsFixes/swds.dll?branch=master",
+			"name" : "Win32",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/Rehlds_Windows/.lastSuccessful/releaseRehldsFixes/swds.dll?branch=master",
 			"bin_name" : "swds.dll"
 		}
-	],
+	,
 	"Config": [ "None" ]
-},
+}
+,
 {
-	"Name": "ReGameDLL",
-	"Binary_path" : "%root%/%mod%/dlls/",
-	"Binary_URL": [
+	"name": "ReGameDLL",
+	"binary_path" : "%root%/%mod%/dlls/",
+	"linux" : 
 		{
-			"Name" : "Linux",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReGameDLLCs_Linux/.lastSuccessful/releaseRegamedllFixes/libcs.so?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReGameDLLCs_Linux/.lastSuccessful/releaseRegamedllFixes/libcs.so?branch=master",
 			"bin_name" : "cs.so"
 		},
+	"win32" :
 		{
-			"Name" : "Win32",
-			"URL" :	"http://teamcity.rehlds.org/guestAuth/repository/download/ReGameDLLCs_Windows/.lastSuccessful/releaseRegamedllFixes/mp.dll?branch=master",
+			"url" :	"http://teamcity.rehlds.org/guestAuth/repository/download/ReGameDLLCs_Windows/.lastSuccessful/releaseRegamedllFixes/mp.dll?branch=master",
 			"bin_name" : "mp.dll"
 		}
-	],
+	,
 	"Config": [ "https://raw.githubusercontent.com/s1lentq/ReGameDLL_CS/master/dist/game.cfg" ]
 },
 {
-	"Name" : "Metamod-R",
-	"Binary_path" : "%root%/%mod%/addons/metamod/dlls/",
-	"Binary_URL" : [
+	"name" : "Metamod-R",
+	"binary_path" : "%root%/%mod%/addons/metamod/dlls/",
+	"linux" : 
 		{
-			"Name" : "Linux",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/Metamod_Linux/.lastSuccessful/release/metamod_i386.so?branch=master",
+			
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/Metamod_Linux/.lastSuccessful/release/metamod_i386.so?branch=master",
 			"bin_name" : "metamod_i386.so"
 		},
+	"win32" : 
 		{
-			"Name" : "Win32",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/Metamod_Windows/.lastSuccessful/release/metamod.dll?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/Metamod_Windows/.lastSuccessful/release/metamod.dll?branch=master",
 			"bin_name" : "metamod.dll"
 		}
-	],
+	,
 	"Config" : [ "https://raw.githubusercontent.com/theAsmodai/metamod-r/master/metamod/extra/config.ini" ]
 },
 {
-	"Name" : "ReVoice",
-	"Binary_path" : "%root%/%mod%/addons/ReVoice/",
-	"Binary_URL" : [
+	"name" : "ReVoice",
+	"binary_path" : "%root%/%mod%/addons/ReVoice/",
+	"linux" :
 		{
-			"Name" : "Linux",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReVoice_Linux/.lastSuccessful/release/librevoice_mm_i386.so?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReVoice_Linux/.lastSuccessful/release/librevoice_mm_i386.so?branch=master",
 			"bin_name" : "revoice_mm_i386.so"
 		},
+	"win32" :
 		{
-			"Name" : "Win32",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReVoice_Windows/.lastSuccessful/release/revoice_mm.dll?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReVoice_Windows/.lastSuccessful/release/revoice_mm.dll?branch=master",
 			"bin_name" : "revoice_mm.dll"
 		}
-	],
+	,
 	"Config" : [ "https://raw.githubusercontent.com/s1lentq/revoice/master/revoice/dist/revoice.cfg" ]
 },
 {
-	"Name" : "ReAPI",
-	"Binary_path" : "%root%/%mod%/addons/%amxmodx%/modules/",
-	"Binary_URL" : [
+	"name" : "ReAPI",
+	"binary_path" : "%root%/%mod%/addons/%amxmodx%/modules/",
+	"linux" :
 		{
-			"Name" : "Linux",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/Reapi_Linux/.lastSuccessful/release/reapi_amxx_i386.so?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/Reapi_Linux/.lastSuccessful/release/reapi_amxx_i386.so?branch=master",
 			"bin_name" : "reapi_amxx_i386.so"
 		},
+	"win32" :
 		{
-			"Name" : "Win32",
-			"URL" : "http://teamcity.rehlds.org/guestAuth/repository/download/Reapi_Windows/.lastSuccessful/release/reapi_amxx.dll?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/Reapi_Windows/.lastSuccessful/release/reapi_amxx.dll?branch=master",
 			"bin_name" : "reapi_amxx.dll"
 		}
-	],
+	,
 	"Config" : [ "None" ]
 }]
