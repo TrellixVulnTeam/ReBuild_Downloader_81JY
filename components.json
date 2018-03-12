@@ -12,8 +12,7 @@
 			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/Rehlds_Windows/.lastSuccessful/releaseRehldsFixes/swds.dll?branch=master",
 			"bin_name" : "swds.dll"
 		}
-}
-,
+},
 {
 	"name": "ReGameDLL",
 	"binary_path" : "%root%/%mod%/dlls/",
@@ -71,6 +70,20 @@
 		{
 			"path" : "%root%/%mod%/addons/ReVoice/",
 			"url" : "https://raw.githubusercontent.com/s1lentq/revoice/master/revoice/dist/revoice.cfg"
+		}
+},
+{
+	"name" : "AmxModX-dev-1.8.3",
+	"binary_path" : "%root%/%mod%/addons/",
+	"linux" :
+		{
+			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-base-linux.tar.gz",
+			"bin_name" : "amxmodx.tar.gz"
+		},
+	"win32" :
+		{
+			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-base-windows.zip",
+			"bin_name" : "amxmodx.zip"
 		}
 },
 {
