@@ -1,6 +1,6 @@
 import os, json
 from datetime import datetime
-from urllib.request import urlretrieve
+import urllib.request as urlLib
 
 MOD_NAME = "cstrike"
 ROOT_DIR = (os.curdir + "/__BUILD/")
@@ -31,11 +31,18 @@ def GetFile(url, directory, destinition):
 	CheckFolders(directory)
 
 	Log(' >> Starting donwload: "' + url + '"' )
-	urlretrieve(url, destinition)
+	try:
+		urlLib.urlretrieve(url, destinition)
+	except urlLib.HTTPError as err:
+		#print("URL: " + err.value + " error 404!")
+		#print(" >> Download aborted! ERROR: " + err.msg)
+		return
+	
+	
 	Log(' >> Download Finished to file "' + destinition + '"')
 
-system = 'both'
-#system = 'linux' 
+#system = 'both'
+system = 'linux' 
 print("  >Used system == " + system)
 system_list = []
 
@@ -52,10 +59,29 @@ counter = 0
 for component in json_data:
 	counter += 1
 	print(str(counter) + '. ' + component['name'])
-	dir = ReplaceAliases(str(component['binary_path']))		
-	
+	dir = ReplaceAliases(str(component['binary_path']))
+	config_path = "None"
+	config_url = "None"
+
+# binary download
 	for item in system_list:
 		url = component[item]['url']
 		bin_name = component[item]['bin_name']
 		destinition = (dir + bin_name)
 		GetFile(url, dir, destinition)
+
+# configs & additionals download
+	try:
+		config_path = ReplaceAliases(str(component['config']['path']))
+		config_url = ReplaceAliases(str(component['config']['url']))
+
+		config_name = os.path.basename(config_url)
+		destinition = (config_path + config_name)
+		GetFile(config_url, config_path, destinition)
+
+	except KeyError as e:    
+		#print(' -> [WARN]: Missing Key: "' + e.args[0] + '". Will be Skipped.')
+		pass
+	else:
+		print(' > config_path = ' + config_path)
+		print('  > config_url = ' + config_url)		
