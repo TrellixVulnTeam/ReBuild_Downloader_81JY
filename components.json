@@ -74,7 +74,7 @@
 },
 {
 	"name" : "AmxModX-dev-1.8.3",
-	"binary_path" : "%root%/%mod%/addons/",
+	"binary_path" : "%root%/%mod%/",
 	"linux" :
 		{
 			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-base-linux.tar.gz",
