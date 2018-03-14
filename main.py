@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 import urllib.request
 
-from unpacker import ArchiveExtract
+import unpacker
 
 MOD_NAME = "cstrike"
 ROOT_DIR = (os.curdir + "/__BUILD/")
@@ -88,10 +88,10 @@ class DownloadThread(Thread):
 
 def DownloadEnd(url, file):
     Log(" > '%s' закончил загрузку!" %(file))
-    if url.find('www.amxmodx.org') != -1:
-        ArchiveExtract(os.path.dirname(file) ,file)
-        print(">>>>> " + os.path.dirname(file))
-        # os.remove(file)
+
+    if unpacker.IsArchive(url):
+        unpacker.ArchiveExtract(os.path.dirname(file) ,file)
+        os.remove(file)
 
 
 def DownloadOnThread(url, dir, destinition):
@@ -103,16 +103,16 @@ def ToDownload(url, dir, destinition):
 # Подготовка папки 
     CheckFolders(dir)
 
-# Thearded download ->
+# Thearded download -> (non-used currently)
     # DownloadOnThread(url, dir, destinition)
 
-# Non-Thearded -> (deprecated)
+# Non-Thearded ->
     GetFile(url, dir, destinition)
 
 
-system = 'both'
+# system = 'both'
 # system = 'linux'
-# system = 'win32'
+system = 'win32'
 
 def DownloadPackage():
 
@@ -133,7 +133,7 @@ def DownloadPackage():
         print(str(counter) + '. ' + component['name'])
         dir = ReplaceAliases(str(component['binary_path']))
 
-        # if component['name'] != "AmxModX-dev-1.8.3":
+        # if component['name'].find("AmxModX") == -1:
             # continue
 
     # binary download
