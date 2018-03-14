@@ -73,17 +73,31 @@
 		}
 },
 {
-	"name" : "AmxModX-dev-1.8.3",
+	"name" : "AmxModX-base-1.8.3",
 	"binary_path" : "%root%/%mod%/",
 	"linux" :
 		{
 			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-base-linux.tar.gz",
-			"bin_name" : "amxmodx.tar.gz"
+			"bin_name" : "amxmodx-base.tar.gz"
 		},
 	"win32" :
 		{
 			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-base-windows.zip",
-			"bin_name" : "amxmodx.zip"
+			"bin_name" : "amxmodx-base.zip"
+		}
+},
+{
+	"name" : "AmxModX-cstrike-1.8.3",
+	"binary_path" : "%root%/%mod%/",
+	"linux" :
+		{
+			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-cstrike-linux.tar.gz",
+			"bin_name" : "amxmodx-cstrike.tar.gz"
+		},
+	"win32" :
+		{
+			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-cstrike-windows.zip",
+			"bin_name" : "amxmodx-cstrike.zip"
 		}
 },
 {
