@@ -8,8 +8,10 @@ import unpacker
 MOD_NAME = "cstrike"
 ROOT_DIR = (os.curdir + "/__BUILD/")
 AMXX_DIR_NAME = "amxmodx"
-#print("Current dir: " + ROOT_DIR)
 COMPONENTS = "components.json"
+
+systems_list = ['Error!' ,'Linux', 'Win32', 'Both']
+system = 0
 
 def CheckFolders(dir):
     if not os.path.exists(dir):
@@ -73,15 +75,15 @@ class DownloadThread(Thread):
             handle = urllib.request.urlopen(req)
 
         except urllib.request.HTTPError as err:
-            print(" >> Download aborted! ERROR: " + err.msg)
+            print(" >> " + os.path.basename(self.destinition) + " Download aborted! ERROR: " + err.msg)
             return
-   
-        with open(self.destinition, "wb") as f_handler:
-            while True:
-                chunk = handle.read(1024)
-                if not chunk:
-                    break
-                f_handler.write(chunk)
+        else:
+            with open(self.destinition, "wb") as f_handler:
+                while True:
+                    chunk = handle.read(1024)
+                    if not chunk:
+                        break
+                    f_handler.write(chunk)
 
         DownloadEnd(self.url, self.destinition)
        
@@ -89,39 +91,32 @@ class DownloadThread(Thread):
 def DownloadEnd(url, file):
     Log(" > '%s' закончил загрузку!" %(file))
 
-    if unpacker.IsArchive(url):
-        unpacker.ArchiveExtract(os.path.dirname(file) ,file)
-        os.remove(file)
+    # if unpacker.IsArchive(file):
+        # unpacker.ArchiveExtract(os.path.dirname(file) ,file)
+        # os.remove(file)
 
 
 def DownloadOnThread(url, dir, destinition):
     """    Запускаем программу """
     thread = DownloadThread(url, dir, destinition)
     thread.start()
+    print("START>>>>>>>>>>>>>>>>>>>>" + url)
 
 def ToDownload(url, dir, destinition):
 # Подготовка папки 
     CheckFolders(dir)
 
 # Thearded download -> (non-used currently)
-    # DownloadOnThread(url, dir, destinition)
+    DownloadOnThread(url, dir, destinition)
 
 # Non-Thearded ->
-    GetFile(url, dir, destinition)
-
-
-# system = 'both'
-# system = 'linux'
-system = 'win32'
+    # GetFile(url, dir, destinition)
 
 def DownloadPackage():
-
-    print("  >Used system == " + system)
-
     system_list = []
-    if(system == 'win32'):
+    if(systems_list[system] == 'win32'):
         system_list.append('win32')
-    elif(system == 'linux'):
+    elif(systems_list[system] == 'linux'):
         system_list.append('linux')
     else:
         system_list.append('win32')
@@ -133,8 +128,8 @@ def DownloadPackage():
         print(str(counter) + '. ' + component['name'])
         dir = ReplaceAliases(str(component['binary_path']))
 
-        # if component['name'].find("AmxModX") == -1:
-            # continue
+        if component['name'].find("AmxModX") == -1:
+            continue
 
     # binary download
         for item in system_list:
@@ -142,7 +137,6 @@ def DownloadPackage():
             bin_name = component[item]['bin_name']
             destinition = (dir + bin_name)
             ToDownload(url, dir, destinition)
-            # 
             DownloadEnd(url, destinition)
 
     # configs & additionals download
@@ -163,5 +157,22 @@ def DownloadPackage():
         #    print(' > config_path = ' + config_path)
         #    print('  > config_url = ' + config_url)
 
+def Greetings():
+    print(" === ReBuild Downloader ===\n")
+
+    GreetingsMsg = ("\
+        Выберите систему для скачивания компонентов:\n\
+        \t 1. Linux\n\
+        \t 2. Win32\n\
+        \t 3. Linux + Win32\n\n\
+        \
+        >>> Система? = \
+    ")
+
+    return max(0, min(int(input(GreetingsMsg)), len(systems_list)-1))
+
 if __name__ == "__main__":
+    system = Greetings()
+    print("Вы выбрали систему: ", systems_list[system])
+
     DownloadPackage()
