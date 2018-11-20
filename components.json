@@ -18,7 +18,7 @@
 	"binary_path" : "%root%/%mod%/dlls/",
 	"linux" : 
 		{
-			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReGameDLLCs_Linux/.lastSuccessful/releaseRegamedllFixes/libcs.so?branch=master",
+			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReGameDLLCs_Linux/.lastSuccessful/releaseRegamedllFixes/cs.so?branch=master",
 			"bin_name" : "cs.so"
 		},
 	"win32" :
@@ -54,8 +54,8 @@
 		}
 },
 {
-	"name" : "ReVoice",
-	"binary_path" : "%root%/%mod%/addons/ReVoice/",
+	"name" : "revoice",
+	"binary_path" : "%root%/%mod%/addons/revoice/",
 	"linux" :
 		{
 			"url" : "http://teamcity.rehlds.org/guestAuth/repository/download/ReVoice_Linux/.lastSuccessful/release/librevoice_mm_i386.so?branch=master",
@@ -68,35 +68,35 @@
 		},
 	"config" :
 		{
-			"path" : "%root%/%mod%/addons/ReVoice/",
+			"path" : "%root%/%mod%/addons/revoice/",
 			"url" : "https://raw.githubusercontent.com/s1lentq/revoice/master/revoice/dist/revoice.cfg"
 		}
 },
 {
-	"name" : "AmxModX-base-1.8.3",
+	"name" : "AmxModX-1.9.0 Base",
 	"binary_path" : "%root%/%mod%/",
 	"linux" :
 		{
-			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-base-linux.tar.gz",
+			"url" : "https://www.amxmodx.org/latest.php?os=linux&version=1.9&package=base",
 			"bin_name" : "amxmodx-base.tar.gz"
 		},
 	"win32" :
 		{
-			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-base-windows.zip",
+			"url" : "https://www.amxmodx.org/latest.php?os=windows&version=1.9&package=base",
 			"bin_name" : "amxmodx-base.zip"
 		}
 },
 {
-	"name" : "AmxModX-cstrike-1.8.3",
+	"name" : "AmxModX-1.9.0 CStrike",
 	"binary_path" : "%root%/%mod%/",
 	"linux" :
 		{
-			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-cstrike-linux.tar.gz",
+			"url" : "https://www.amxmodx.org/latest.php?os=windows&version=1.9&package=cstrike",
 			"bin_name" : "amxmodx-cstrike.tar.gz"
 		},
 	"win32" :
 		{
-			"url" : "https://www.amxmodx.org/amxxdrop/1.8/amxmodx-1.8.3-dev-git5154-cstrike-windows.zip",
+			"url" : "https://www.amxmodx.org/latest.php?os=linux&version=1.9&package=cstrike",
 			"bin_name" : "amxmodx-cstrike.zip"
 		}
 },
