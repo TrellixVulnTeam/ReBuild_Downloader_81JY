@@ -100,9 +100,9 @@ def ToDownload(url, dir, destinition):
     CheckFolders(dir)
 
 # Thearded download -> (non-used currently)
-    # GetFile_ByThread(url, dir, destinition)
+    GetFile_ByThread(url, dir, destinition)
 # OR Non-Thearded ->
-    GetFile(url, dir, destinition)
+    # GetFile(url, dir, destinition)
 
 
 def ToUnpack(destinition):
