@@ -54,7 +54,7 @@
 		}
 },
 {
-	"name" : "revoice",
+	"name" : "ReVoice",
 	"binary_path" : "%root%/%mod%/addons/revoice/",
 	"linux" :
 		{
@@ -91,12 +91,12 @@
 	"binary_path" : "%root%/%mod%/",
 	"linux" :
 		{
-			"url" : "https://www.amxmodx.org/latest.php?os=windows&version=1.9&package=cstrike",
+			"url" : "https://www.amxmodx.org/latest.php?os=linux&version=1.9&package=cstrike",
 			"bin_name" : "amxmodx-cstrike.tar.gz"
 		},
 	"win32" :
 		{
-			"url" : "https://www.amxmodx.org/latest.php?os=linux&version=1.9&package=cstrike",
+			"url" : "https://www.amxmodx.org/latest.php?os=windows&version=1.9&package=cstrike",
 			"bin_name" : "amxmodx-cstrike.zip"
 		}
 },

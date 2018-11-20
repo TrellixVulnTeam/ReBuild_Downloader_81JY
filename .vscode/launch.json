@@ -5,8 +5,8 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": "Python Experimental: Terminal (external)",
-        "type": "pythonExperimental",
+        "name": "Python: Terminal (external)",
+        "type": "python",
         "request": "launch",
         "pythonPath": "${config:python.pythonPath}",
         "program": "${file}",

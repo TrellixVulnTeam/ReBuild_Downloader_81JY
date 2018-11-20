@@ -9,6 +9,8 @@ def IsArchive(url):
         return True
 
 def ArchiveExtract(dir, file):
+    # print("Try to extract file '{}'".format(file))
+
     if file.endswith("tar.gz"):
         with tarfile.open(file, "r:gz") as pFile:
             pFile.extractall(dir)
@@ -17,4 +19,4 @@ def ArchiveExtract(dir, file):
         with zipfile.ZipFile(file, 'r') as pFile:
             pFile.extractall(dir)
 
-    print(" > '" + os.path.basename(file) + "' succefully extracted to: " + dir)
+    print(" > '" + os.path.basename(file) + "' succefully extracted to:{}".format(dir))

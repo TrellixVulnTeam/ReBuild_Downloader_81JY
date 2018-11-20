@@ -27,48 +27,38 @@ def ReplaceAliases(str):
     return str
 
 Log = lambda str: print('[' + datetime.now().strftime('%H:%M:%S') + ']' + str)
-toFixed = lambda numObj, digits: f"{numObj:.{digits}f}"
+# toFixed = lambda numObj, digits: f"{numObj:.{digits}f}"
 
-
-def GetFile(url, directory, destinition):
-    CheckFolders(directory)
-
-    Log(' >> Starting donwload: "' + url + '"' )
+def GetFile(url, dir, destinition):
+    # Log(' >> Starting donwload non-thread: "{}"'.format(url))
     try:
         header = { 'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; WOW64)' }
         req = urllib.request.Request(url, headers=header)
         response = urllib.request.urlopen(req)
 
-        # urllib.request.urlretrieve(url, destinition)
-
         with open(destinition,'wb') as output:
               output.write(response.read())
 
     except urllib.request.HTTPError as err:
-        print(" >> Download aborted! ERROR: " + err.msg)
+        print(" >> " + os.path.basename(destinition) + " Download aborted! ERROR: " + err.msg)
         return
+    Log(' >> Finished donwload non-thread: "{}"'.format(url))
 
-    Log(' >> Download Finished to file "' + destinition + '"')
+    # Unpack
+    ToUnpack(destinition)
 
 
 from threading import Thread
 
-class DownloadThread(Thread):
-    """
-    Пример скачивание файла используя многопоточность
-    """
-   
+class DownloadThread(Thread):   
     def __init__(self, url, dir, destinition):
-        """Инициализация потока"""
         Thread.__init__(self)
         self.destinition = destinition
         self.url = url
         self.dir = dir
    
     def run(self):
-        """Запуск потока"""
-        Log(' >> Starting donwload: "' + self.url + '"' )
-
+        # Log('>> Starting donwload thread: "{}"'.format(self.url))
         try:
             req = urllib.request.Request(self.url)
             req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64)")
@@ -84,39 +74,48 @@ class DownloadThread(Thread):
                     if not chunk:
                         break
                     f_handler.write(chunk)
+        Log('\n >> Finished donwload thread: "{}"'.format(self.url))
+        
+        # Unpack
+        ToUnpack(self.destinition)
+        
+    # def _stop(self):
+        #  Log(' >> _stop(): "{}"'.format(self.url))
 
-        DownloadEnd(self.url, self.destinition)
-       
+    # def _delete(self):
+        # Log(' >> _delete(): "{}"'.format(self.url))
 
-def DownloadEnd(url, file):
-    Log(" > '%s' закончил загрузку!" %(file))
-
-    # if unpacker.IsArchive(file):
-        # unpacker.ArchiveExtract(os.path.dirname(file) ,file)
-        # os.remove(file)
+    # def join(self):
+        # Log(' >> join(): "{}"'.format(self.url))
 
 
-def DownloadOnThread(url, dir, destinition):
-    """    Запускаем программу """
+def GetFile_ByThread(url, dir, destinition):
     thread = DownloadThread(url, dir, destinition)
     thread.start()
-    print("START>>>>>>>>>>>>>>>>>>>>" + url)
+    # thread.join() # don't need ?! hmm..
+
 
 def ToDownload(url, dir, destinition):
 # Подготовка папки 
     CheckFolders(dir)
 
 # Thearded download -> (non-used currently)
-    DownloadOnThread(url, dir, destinition)
+    # GetFile_ByThread(url, dir, destinition)
+# OR Non-Thearded ->
+    GetFile(url, dir, destinition)
 
-# Non-Thearded ->
-    # GetFile(url, dir, destinition)
+
+def ToUnpack(destinition):
+    if unpacker.IsArchive(destinition):
+        unpacker.ArchiveExtract(os.path.dirname(destinition) ,destinition)
+        os.remove(destinition)
+
 
 def DownloadPackage():
     system_list = []
-    if(systems_list[system] == 'win32'):
+    if(systems_list[system] == 'Win32'):
         system_list.append('win32')
-    elif(systems_list[system] == 'linux'):
+    elif(systems_list[system] == 'Linux'):
         system_list.append('linux')
     else:
         system_list.append('win32')
@@ -128,16 +127,17 @@ def DownloadPackage():
         print(str(counter) + '. ' + component['name'])
         dir = ReplaceAliases(str(component['binary_path']))
 
-        if component['name'].find("AmxModX") == -1:
-            continue
+# Временно, для проверки распаковки AMXX в потоках
+        # if component['name'].find("AmxModX") == -1:
+            # continue
 
     # binary download
         for item in system_list:
+            # print(" >>>>>>> Current item:'{}'", format(item))
             url = component[item]['url']
             bin_name = component[item]['bin_name']
             destinition = (dir + bin_name)
             ToDownload(url, dir, destinition)
-            DownloadEnd(url, destinition)
 
     # configs & additionals download
         try: # Cause some keys are unavailable
@@ -148,14 +148,14 @@ def DownloadPackage():
             destinition = (config_path + config_name)
 
             ToDownload(config_url, config_path, destinition)
-            # DownloadOnThread(config_url, config_path, destinition)
 
         except KeyError as e:
             # print(' -> [WARN]: Missing Key: "' + e.args[0] + '". Will be Skipped.')
             pass
-        #else:
+        # else:
         #    print(' > config_path = ' + config_path)
         #    print('  > config_url = ' + config_url)
+    
 
 def Greetings():
     print(" === ReBuild Downloader ===\n")
@@ -175,4 +175,8 @@ if __name__ == "__main__":
     system = Greetings()
     print("Вы выбрали систему: ", systems_list[system])
 
+    # import time
+    # start_time = time.time()
     DownloadPackage()
+
+    # Log("Download time = {}".format(time.time() - start_time))
