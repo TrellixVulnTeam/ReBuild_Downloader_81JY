@@ -3,6 +3,9 @@ import json
 from datetime import datetime
 import urllib.request
 
+from tqdm import tqdm
+import requests
+
 import unpacker
 
 MOD_NAME = "cstrike"
@@ -31,21 +34,14 @@ Log = lambda str: print('[' + datetime.now().strftime('%H:%M:%S') + ']' + str)
 
 def GetFile(url, dir, destinition):
     # Log(' >> Starting donwload non-thread: "{}"'.format(url))
-    try:
-        header = { 'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; WOW64)' }
-        req = urllib.request.Request(url, headers=header)
-        response = urllib.request.urlopen(req)
+    chunk_size = 1024
+    r = requests.get(url, stream = True)
+    total_size = int(r.headers['content-length'])
+    with open(destinition, 'wb') as f:
+        for data in tqdm(iterable = r.iter_content(chunk_size = chunk_size), total = total_size/chunk_size, unit = 'KB'):
+            f.write(data)
 
-        with open(destinition,'wb') as output:
-              output.write(response.read())
-
-    except urllib.request.HTTPError as err:
-        print(" >> " + os.path.basename(destinition) + " Download aborted! ERROR: " + err.msg)
-        return
-    Log(' >> Finished donwload non-thread: "{}"'.format(url))
-
-    # Unpack
-    ToUnpack(destinition)
+    # Log(' >> Finished donwload non-thread: "{}"'.format(url))
 
 
 from threading import Thread
@@ -100,10 +96,12 @@ def ToDownload(url, dir, destinition):
     CheckFolders(dir)
 
 # Thearded download -> (non-used currently)
-    GetFile_ByThread(url, dir, destinition)
+    # GetFile_ByThread(url, dir, destinition)
 # OR Non-Thearded ->
-    # GetFile(url, dir, destinition)
+    GetFile(url, dir, destinition)
 
+    # Unpack
+    ToUnpack(destinition)
 
 def ToUnpack(destinition):
     if unpacker.IsArchive(destinition):
