@@ -11,7 +11,7 @@ import unpacker
 MOD_NAME = "cstrike"
 ROOT_DIR = (os.curdir + "/__BUILD/")
 AMXX_DIR_NAME = "amxmodx"
-COMPONENTS = "components.json"
+COMPONENTS = "app/components.json"
 
 systems_list = ['Error!' ,'Linux', 'Win32', 'Both']
 system = 0
