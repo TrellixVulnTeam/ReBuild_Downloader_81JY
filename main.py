@@ -1,8 +1,8 @@
 import os
 import json
 from datetime import datetime
-import urllib.request
 
+# From pip
 from tqdm import tqdm
 import requests
 
@@ -33,7 +33,6 @@ Log = lambda str: print('[' + datetime.now().strftime('%H:%M:%S') + ']' + str)
 # toFixed = lambda numObj, digits: f"{numObj:.{digits}f}"
 
 def GetFile(url, dir, destinition):
-    # Log(' >> Starting donwload non-thread: "{}"'.format(url))
     chunk_size = 1024
     r = requests.get(url, stream = True)
     total_size = int(r.headers['content-length'])
@@ -41,63 +40,10 @@ def GetFile(url, dir, destinition):
         for data in tqdm(iterable = r.iter_content(chunk_size = chunk_size), total = total_size/chunk_size, unit = 'KB'):
             f.write(data)
 
-    # Log(' >> Finished donwload non-thread: "{}"'.format(url))
-
-
-from threading import Thread
-
-class DownloadThread(Thread):   
-    def __init__(self, url, dir, destinition):
-        Thread.__init__(self)
-        self.destinition = destinition
-        self.url = url
-        self.dir = dir
-   
-    def run(self):
-        # Log('>> Starting donwload thread: "{}"'.format(self.url))
-        try:
-            req = urllib.request.Request(self.url)
-            req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64)")
-            handle = urllib.request.urlopen(req)
-
-        except urllib.request.HTTPError as err:
-            print(" >> " + os.path.basename(self.destinition) + " Download aborted! ERROR: " + err.msg)
-            return
-        else:
-            with open(self.destinition, "wb") as f_handler:
-                while True:
-                    chunk = handle.read(1024)
-                    if not chunk:
-                        break
-                    f_handler.write(chunk)
-        Log('\n >> Finished donwload thread: "{}"'.format(self.url))
-        
-        # Unpack
-        ToUnpack(self.destinition)
-        
-    # def _stop(self):
-        #  Log(' >> _stop(): "{}"'.format(self.url))
-
-    # def _delete(self):
-        # Log(' >> _delete(): "{}"'.format(self.url))
-
-    # def join(self):
-        # Log(' >> join(): "{}"'.format(self.url))
-
-
-def GetFile_ByThread(url, dir, destinition):
-    thread = DownloadThread(url, dir, destinition)
-    thread.start()
-    # thread.join() # don't need ?! hmm..
-
 
 def ToDownload(url, dir, destinition):
 # Подготовка папки 
     CheckFolders(dir)
-
-# Thearded download -> (non-used currently)
-    # GetFile_ByThread(url, dir, destinition)
-# OR Non-Thearded ->
     GetFile(url, dir, destinition)
 
     # Unpack
